@@ -29,5 +29,12 @@ class TasksController extends Controller
             'task_category_id' => request()->task_category_id
     	]);
         return $task;
+    }
+
+    public function delete(Task $task)
+    {
+        //delete the task
+        $task->delete();
+        return "Task was deleted successfully";
     }    
 }

@@ -12,7 +12,10 @@
 						<input type="text" v-model='new_task.title'>
 						<button v-on:click='postNewTask'>Add</button>
 					</li>
-					<li class="list-group-item" v-for='task in tasks'>@{{ task.title }}</li>
+					<li class="list-group-item" v-for='task in tasks'>
+						@{{ task.title }}
+						<button v-on:click='deleteTask(task)'>Delete</button>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -39,11 +42,19 @@
 			},
 			methods: {
 				postNewTask() {
+					axios.get('url', 'parameters');
 					axios.post('/projects/'+this.project.id+'/tasks', this.new_task)
 						.then(({data})=>{
 							this.tasks.push(data);
 							this.new_task.title = '';
 							console.log(data);
+						});
+				},
+				deleteTask(task) {
+					axios.post('/tasks/'+task.id+'/delete')
+						.then(function(response){
+							var index = vm.tasks.indexOf(task);
+							vm.tasks.splice(index, 1);
 						});
 				}
 			}
