@@ -10,7 +10,7 @@
 					</li>
 					<li class="list-group-item">
 						<input type="text" v-model='new_task.title'>
-						<button>Add</button>
+						<button v-on:click='postNewTask'>Add</button>
 					</li>
 					<li class="list-group-item" v-for='task in tasks'>@{{ task.title }}</li>
 				</ul>
@@ -35,7 +35,16 @@
 				new_task: {
 					task_category_id: 1,
 					title:'',
-					project_id: project.id
+				}
+			},
+			methods: {
+				postNewTask() {
+					axios.post('/projects/'+this.project.id+'/tasks', this.new_task)
+						.then(({data})=>{
+							this.tasks.push(data);
+							this.new_task.title = '';
+							console.log(data);
+						});
 				}
 			}
 		});

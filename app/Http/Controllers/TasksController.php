@@ -24,24 +24,10 @@ class TasksController extends Controller
 
     public function store(Project $project)
     {
-    	$project->tasks()->create([
+    	$task = $project->tasks()->create([
     		'title' => request()->title,
-    		'description' => request()->description
+            'task_category_id' => request()->task_category_id
     	]);
-
-    	return redirect('/projects/'.$project->id);
-    }
-    
-    public function edit(Task $task)
-    {
-        return view('tasks.edit')->with('task', $task);
-    }
-
-    public function update(Task $task)
-    {
-        $task->title = request()->title;
-        $task->description = request()->description;
-        $task->save();
-        return redirect('/projects/'.$task->project->id);
-    }
+        return $task;
+    }    
 }
