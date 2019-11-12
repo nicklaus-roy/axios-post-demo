@@ -9,7 +9,7 @@
 						<button class="">Add Task</button>
 					</li>
 					<li class="list-group-item">
-						<input type="text" v-model='new_task.title'>
+						<input type="text" v-model='new_task.title' v-on:keyup.enter='postNewTask'>
 						<button v-on:click='postNewTask'>Add</button>
 					</li>
 					<li class="list-group-item" v-for='task in tasks'>
